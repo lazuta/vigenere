@@ -1,9 +1,10 @@
 package method;
 
-class Vigenere {
+class Vigenere extends Thread{
     protected String word;
     protected String key;
     protected boolean mode;
+    protected String codeString;
 
     Vigenere(String word, String key, boolean mode) {
         this.word = word;
@@ -11,7 +12,29 @@ class Vigenere {
         this.mode = mode;
     }
 
-    public String encrypt() {
+    @Override
+    public void run() {
+        System.out.println("\u001B[37m" + "Старт программы..." + "\u001B[0m");
+        System.out.println("\u001B[37m" +  "Кодируем и декодируем..." + "\u001B[0m \n");
+
+        try {
+            sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        encrypt();
+
+        try {
+            sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        decrypt(codeString);
+    }
+
+    protected void encrypt() {
         StringBuilder res = new StringBuilder();
 
         try {
@@ -29,10 +52,11 @@ class Vigenere {
             if (mode) System.out.println("\u001B[34m" + "Encrypt bloсk finally" + "\u001B[0m");
         }
 
-        return res.toString();
+        codeString =  res.toString();
+        System.out.println("Закодированная строка: " + codeString + "\n");
     }
 
-    public String decrypt(String text) {
+    protected void decrypt(String text) {
         StringBuilder res = new StringBuilder();
 
         try {
@@ -50,7 +74,7 @@ class Vigenere {
             if (mode) System.out.println("\u001B[34m" + "Decrypt bloсk finally" + "\u001B[0m");
         }
 
-        return res.toString();
+        System.out.println("Раскодированная строка: " + res.toString());
     }
 
 }
